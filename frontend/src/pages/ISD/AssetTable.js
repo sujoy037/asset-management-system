@@ -21,9 +21,13 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import DashboardLayout from '../../components/DashboardLayout';
-import BackgroundImage from '../../components/chart/bg-blue.jpg';
+import BackgroundImage from '../../components/chart/bg-new-vec.jpg';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { motion } from 'framer-motion';
 import { useTheme } from '@mui/material/styles';
+import api from '../../api';
+
+
 const AssetTable = () => {
   const [assets, setAssets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +56,7 @@ const AssetTable = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:5001/api/total-assets', {
+        const response = await api.get('/total-assets', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -101,6 +105,14 @@ const AssetTable = () => {
 
   return (
     <DashboardLayout role="ISD">
+      <Button
+              variant="contained"
+              startIcon={<ArrowBackIcon />}
+              onClick={() => navigate('/assets')}
+              sx={{ marginBottom: 2, background: 'linear-gradient(to right,#bf0ae2,#bf0ae2)', color: 'white' }}
+            >
+              
+            </Button>
       <motion.div initial="hidden" animate="visible" transition={{ duration: 0.8, staggerChildren: 0.2 }}>
         <Box
           sx={{
@@ -120,7 +132,7 @@ const AssetTable = () => {
               <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
                 <Grid item xs={12} sm={6}>
                   <Typography variant="h5" gutterBottom>
-                    Upload Total Assets
+                    Total Assets
                   </Typography>
                 </Grid>
               </Grid>
@@ -141,12 +153,12 @@ const AssetTable = () => {
                         {[
                           { id: 'id', label: 'ID' },
                           { id: 'building', label: 'Building' },
-                          { id: 'office_cd', label: 'Office Code' },
+                          //{ id: 'charge_cd', label: 'Charge Code' },
                           //{ id: 'charge_nm', label: 'Charge Name' },
                           { id: 'cpu_number', label: 'CPU Number' },
                           { id: 'floor', label: 'Floor' },
-                          { id: 'hrms_id_of_user', label: 'HRMS ID' },
-                          { id: 'name_of_user', label: 'User Name' },
+                          // { id: 'hrms_id_of_user', label: 'HRMS ID' },
+                          // { id: 'name_of_user', label: 'User Name' },
                           { id: 'office_name', label: 'Office Name' },
                           { id: 'room_no', label: 'Room Number' },
                           //{ id: 'voip_of_user', label: 'VOIP' },
@@ -169,12 +181,12 @@ const AssetTable = () => {
                         <TableRow key={asset.id}>
                           <TableCell>{asset.id}</TableCell>
                           <TableCell>{asset.building}</TableCell>
-                          <TableCell>{asset.office_cd}</TableCell>
+                          {/* <TableCell>{asset.charge_cd}</TableCell> */}
                           {/* <TableCell>{asset.charge_nm}</TableCell> */}
                           <TableCell>{asset.cpu_number}</TableCell>
                           <TableCell>{asset.floor}</TableCell>
-                           <TableCell>{asset.hrms_id_of_user}</TableCell>
-                          <TableCell>{asset.name_of_user}</TableCell> 
+                          {/* <TableCell>{asset.hrms_id_of_user}</TableCell>
+                          <TableCell>{asset.name_of_user}</TableCell> */}
                           <TableCell>{asset.office_name}</TableCell>
                           <TableCell>{asset.room_no}</TableCell>
                           {/* <TableCell>{asset.voip_of_user}</TableCell> */}
@@ -195,13 +207,13 @@ const AssetTable = () => {
                 onRowsPerPageChange={handleChangeRowsPerPage}
               />
 
-              <Button
+              {/* <Button
                 variant="contained"
                 sx={{ mt: 3 }}
                 onClick={() => navigate('/assets')}
               >
                 Back
-              </Button>
+              </Button> */}
             </Paper>
           </Container>
         </Box>

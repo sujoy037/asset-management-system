@@ -32,14 +32,28 @@ import EmployeeComplaints from './pages/Employee/EmployeeComplaints';
 import EmployeeReports from './pages/Employee/EmployeeReports';
 import EmployeeHistroy from './pages/Employee/EmployeeHistory';
 import AssetsAssignHistory from './pages/ISD/AssetAssignHistory';
-import TechnicianDashboard from './pages/TechnicianDashboard';
-import TransferAssignedAsset from './pages/ISD/TransferAssignedAsset';
-import UpdateAssignedAsset from './pages/ISD/UpdateAssignedAsset';
+import TechnicianDashboard from './pages/Technician/TechnicianDashboard';
+import LandingPage from './pages/Landing'
+import TransferAssets from './pages/ISD/TransferAssets';
+import TechnicianComplaintsList from './pages/Technician/TechnicianComplaintsList';
+import RegisterTechnician from './pages/Technician/RegisterTechnician';
+import AssignTechnician from './pages/Technician/AssignTechnician';
+import TechnicianReport from './pages/Technician/TechnicianReport' ;
+import UpdateTransferAsset from './pages/ISD/UpdateTransferAsset';
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <LandingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} />
         {/* Protect the Dashboard route */}
         <Route
           path="/admin-dashboard"
@@ -185,22 +199,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-         <Route
-          path="/transfer-assigned-asset"
-          element={
-            <ProtectedRoute>
-              <TransferAssignedAsset />
-            </ProtectedRoute>
-          }
-        />
-         <Route
-          path="/transfer-assigned-asset/:assetId"
-          element={
-            <ProtectedRoute>
-              <UpdateAssignedAsset/>
-            </ProtectedRoute>
-          }
-        />
         <Route
           path="/assign-history"
           element={
@@ -289,15 +287,64 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="/technician-dashboard"
           element={
             <ProtectedRoute>
-              <TechnicianDashboard/>
+              <TechnicianDashboard />
             </ProtectedRoute>
           }
         />
-        
+        <Route
+          path="/technician-complaints"
+          element={
+            <ProtectedRoute>
+              <TechnicianComplaintsList/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/register-technician"
+          element={
+            <ProtectedRoute>
+              <RegisterTechnician/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/assign-technician"
+          element={
+            <ProtectedRoute>
+              <AssignTechnician/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/technician-reports"
+          element={
+            <ProtectedRoute>
+              <TechnicianReport/>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/transfer-assigned-asset"
+          element={
+            <ProtectedRoute>
+              <TransferAssets/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/transfer-assigned-asset/:assetId"
+          element={
+            <ProtectedRoute>
+              <UpdateTransferAsset/>
+            </ProtectedRoute>
+          }
+        />
+
 
         {/* You can add more protected routes like this */}
       </Routes>

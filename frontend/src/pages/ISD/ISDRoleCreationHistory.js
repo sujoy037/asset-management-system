@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DashboardLayout from '../../components/DashboardLayout';
 import { motion } from 'framer-motion';
-import BackgroundImage from '../../components/chart/bg-blue.jpg';
+import BackgroundImage from '../../components/chart/bg-new-vec.jpg';
+import api from '../../api';
 
 const ISDRoleCreationHistory = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const ISDRoleCreationHistory = () => {
                 return;
             }
 
-            const response = await axios.get('http://localhost:5001/api/user-roles-status', {
+            const response = await api.get('/user-roles-status', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -148,7 +149,7 @@ const ISDRoleCreationHistory = () => {
                                 fullWidth
                             />
                         </Box>
-                        <Typography variant="h5" gutterBottom color="white">
+                        <Typography variant="h5" gutterBottom color="blue">
                             User Role and Status Information
                         </Typography>
                         <TableContainer component={Paper} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>

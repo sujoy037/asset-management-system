@@ -10,7 +10,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import HistoryIcon from '@mui/icons-material/History';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import BackgroundImage from '../../components/chart/bg-blue.jpg';
+import BackgroundImage from '../../components/chart/bg-new-vec.jpg';
 
 // Animation for cards and grid elements
 const cardVariants = {

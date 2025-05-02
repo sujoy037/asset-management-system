@@ -6,7 +6,12 @@ const api = axios.create({
   baseURL: BASE_URL,  // This will use the base URL from the config file
   headers: {
     'Content-Type': 'application/json',
+
   },
 });
 
 export default api;
+
+
+
+

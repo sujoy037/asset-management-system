@@ -17,7 +17,7 @@ import Barchartpage from '../components/chart/Barchartpage';
 import PieChart from '../components/chart/RoleAssignPieChart';
 import RoleChart from '../components/chart/RoleChart';
 import { ComboChart } from '../components/chart/ComboChart';
-import BackgroundImage from '../components/chart/bg.png'; // Import your background image
+import BackgroundImage from '../components/chart/bg-new-vec.jpg'; // Import your background image
 
 // Card animation variants
 const cardVariants = {

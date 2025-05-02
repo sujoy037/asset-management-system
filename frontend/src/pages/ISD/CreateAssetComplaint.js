@@ -6,8 +6,8 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
 import { useTheme } from '@mui/material/styles';
-import BackgroundImage from '../../components/chart/bg-blue.jpg';
-
+import BackgroundImage from '../../components/chart/bg-new-vec.jpg';
+import ComplaintRaiseImage from '../../components/chart/complaint-raise.jpg';
 const CreateAssetComplaint = () => {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -218,7 +218,10 @@ const CreateAssetComplaint = () => {
       <motion.div initial="hidden" animate="visible" transition={{ duration: 0.8, staggerChildren: 0.2 }}>
         <Box
           sx={{
-            marginTop: 2,
+            display: 'flex',
+            flexDirection: isSmallScreen ? 'column' : 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             padding: isSmallScreen ? 3 : 10,
             borderRadius: '10px',
             boxShadow: '0px 4px 10px rgba(34, 2, 2, 0.1)',
@@ -228,7 +231,13 @@ const CreateAssetComplaint = () => {
             backgroundImage: `url(${BackgroundImage})`,
             textAlign: 'center',
           }}
-        ><Box sx={{ maxWidth: 600, margin: 'auto', padding: 3, borderRadius: '16px', boxShadow: 3, backgroundColor: '#fff' }}>
+        >
+          {/* Image Section */}
+          <Box sx={{ flex: 1, textAlign: 'center', padding: 2 }}>
+            <img src={ComplaintRaiseImage} alt="Complaints" style={{ maxWidth: isSmallScreen ? '80%' : '50%', height: 'auto', borderRadius: '10px' }} />
+          </Box>
+
+          <Box sx={{ maxWidth: 600, margin: 'auto', padding: 3, borderRadius: '16px', boxShadow: 3, backgroundColor: '#fff' }}>
             <Typography variant="h5" gutterBottom>Raise Complaints</Typography>
             <Box textAlign="center" mt={3} display="flex" justifyContent="space-between">
               <Button

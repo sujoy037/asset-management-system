@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Typography, Container, Paper, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import BackgroundImage from '../components/chart/bg-blue.jpg';
-import LogoImage from '../components/chart/logo.png';
-import api from '../../src/api'
-
+import BackgroundImage from '../components/chart/bg-new-vec.jpg';
+import LogoImage from '../components/chart/login.png';
+import api from '../../src/api';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const Login = () => {
   const navigate = useNavigate();
   const [usr_cd, setUsrCd] = useState('');
-  const [usr_nm, setUsrNM] = useState('');
   const [passwd, setPasswd] = useState('');
   const [captcha, setCaptcha] = useState('');
   const [captchaImage, setCaptchaImage] = useState('');
@@ -25,8 +24,7 @@ const Login = () => {
 
   const fetchCaptcha = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/api/captcha');
-      //const response = await api.get('/captcha'); // No need to specify the full URL
+      const response = await api.get('/captcha');
       setCaptchaImage(response.data.captchaImage);
       setCaptchaId(response.data.captchaId);
     } catch (err) {
@@ -37,40 +35,25 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5001/api/user-login', {
+      const response = await api.post('/user-login', {
         usr_cd,
         passwd,
         captcha,
         captchaId,
-        usr_nm,
         role,
       });
 
-      // const response = await api.post('/user-login', {
-      //   usr_cd,
-      //   passwd,
-      //   captcha,
-      //   captchaId,
-      //   usr_nm,
-      //   role,
-      // });
-
-
-
       if (response.data.token) {
         localStorage.setItem('authToken', response.data.token);
-        localStorage.setItem('usr_nm', response.data.user.userName); // Store user name
-        localStorage.setItem('selectedRole', role); // Store selected role
+        localStorage.setItem('selectedRole', role);
 
-        const selectedRole = response.data.selectedRole;
-        if (selectedRole === 'Admin') {
+        if (role === 'Admin') {
           navigate('/admin-dashboard');
-        } else if (selectedRole === 'ISD') {
+        } else if (role === 'ISD') {
           navigate('/isd-dashboard');
-        } else if (selectedRole === 'Employee') {
+        } else if (role === 'Employee') {
           navigate('/employee-dashboard');
-        }
-        else if (selectedRole === 'Technician') {
+        } else if (role === 'Technician') {
           navigate('/technician-dashboard');
         }
       }
@@ -79,206 +62,127 @@ const Login = () => {
       fetchCaptcha();
     }
   };
-  // Animation for cards and grid elements
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1 },
-  };
-
-  const gridVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0 },
-  };
 
   return (
-    <Container
-      component="main"
-      sx={{
-        display: 'flex',
-        height: '100vh',
-        position: 'relative',
-      }}
-    >
-      {/* Animated Background Image */}
-      <motion.div
-        style={{
-          position: 'absolute',
+    <>
+      <Header />
+      <Box
+        sx={{
+          position: 'fixed',
           top: 0,
           left: 0,
           width: '100%',
-          height: '100%',
+          height: '100vh',
           backgroundImage: `url(${BackgroundImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
           zIndex: -1,
-          animation: 'backgroundAnim 10s infinite alternate', // Background animation
         }}
-      // animate={{ scale: 1.1 }}
-      // transition={{ repeat: Infinity, duration: 10, ease: 'easeInOut' }}
       />
-      {/* Define the keyframes for background animation */}
-      <style>
-        {`
-              @keyframes backgroundAnim {
-                0% {
-                  background-position: 0% 0%;
-                }
-                100% {
-                  background-position: 100% 100%;
-                }
-              }
-            `}
-      </style>
 
-      {/* Left Side Container with Background Image */}
-      <Box
+      <Container
+        component="main"
         sx={{
-          flex: 1,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          color: 'white',
-          fontSize: '24px',
-          padding: 3,
+          height: '100vh',  // Reduced height
+          overflow: 'hidden', // Prevent scrolling
+          paddingTop: '100px', // Adds space before the login card
         }}
       >
-        {/* You can add a welcome message or logo here if needed */}
-      </Box>
-
-      {/* Right Side: Login Form */}
-      <Box
-        sx={{
-          flex: 1,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: 3,
-          borderRadius: '1rem',
-        }}
-      >
-        <Paper sx={{ padding: 3, width: '100%', maxWidth: 400 }}>
+        <Paper
+          sx={{
+            padding: 3, // Reduce padding
+            maxWidth: 350, // Decrease max width
+            width: '100%',
+            borderRadius: '12px',
+            boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.15)', // Slightly reduced shadow
+            background: 'rgba(255, 255, 255, 0.95)',
+          }}
+        >
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
           >
-            {/* <Typography variant="h6" align="center" color='#0000FF'>
-              Asset Management System
-            </Typography> */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 1 }}>
-              {/* Logo Image */}
-              <img
-                src={LogoImage} // Replace with your logo path if different
-                alt="Logo"
-                style={{ height: '80px', marginBottom: '8px' }} // Adjust size and spacing
-              />
-
-              {/* Application Title */}
-              <Typography variant="h6" align="center" color="#0000FF">
+            <Box textAlign="center" mb={2}>
+              <img src={LogoImage} alt="Logo" style={{ height: '60px' }} /> {/* Reduce logo size */}
+              <Typography variant="h6" color="#1976D2" fontWeight="bold">
                 Asset Management System
               </Typography>
             </Box>
-            <Typography variant="h5" align="center">Sign In</Typography>
+            {/* <Typography variant="h5" align="center" gutterBottom>
+              Sign In
+            </Typography> */}
             {errorMessage && (
               <Typography variant="body2" color="error" align="center">
                 {errorMessage}
               </Typography>
             )}
             <form onSubmit={handleSubmit}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}> {/* Reduce gaps */}
+                <TextField
+                  label="User ID"
+                  variant="outlined"
+                  value={usr_cd}
+                  onChange={(e) => setUsrCd(e.target.value)}
+                  fullWidth
+                  size="small"
+                />
+                <TextField
+                  label="Password"
+                  variant="outlined"
+                  type="password"
+                  value={passwd}
+                  onChange={(e) => setPasswd(e.target.value)}
+                  fullWidth
+                  size="small"
+                />
+                <FormControl fullWidth size="small">
+                  <InputLabel>Role</InputLabel>
+                  <Select value={role} onChange={(e) => setRole(e.target.value)} label="Role">
+                    <MenuItem value="ISD">ISD</MenuItem>
+                    <MenuItem value="Employee">Employee</MenuItem>
+                    <MenuItem value="Admin">Admin</MenuItem>
+                    <MenuItem value="Technician">Technician</MenuItem>
+                  </Select>
+                </FormControl>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <img src={captchaImage} alt="CAPTCHA" style={{ height: '40px' }} /> {/* Reduce CAPTCHA size */}
                   <TextField
-                    label="User ID"
+                    label="Enter CAPTCHA"
                     variant="outlined"
-                    value={usr_cd}
-                    onChange={(e) => setUsrCd(e.target.value)}
+                    value={captcha}
+                    onChange={(e) => setCaptcha(e.target.value)}
                     fullWidth
+                    size="small"
                   />
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
+                </Box>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  fullWidth
+                  sx={{
+                    background: 'linear-gradient(to right, #1976D2, #0D47A1)',
+                    color: 'white',
+                    padding: '8px', // Reduce button padding
+                    fontSize: '14px', // Reduce font size
+                    borderRadius: '8px',
+                    '&:hover': { background: 'linear-gradient(to right, #1565C0, #0D47A1)' },
+                  }}
                 >
-                  <TextField
-                    label="Password"
-                    variant="outlined"
-                    type="password"
-                    value={passwd}
-                    onChange={(e) => setPasswd(e.target.value)}
-                    fullWidth
-                  />
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7 }}
-                >
-                  <FormControl fullWidth>
-                    <InputLabel>Role</InputLabel>
-                    <Select
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                      label="Role"
-                    >
-                      <MenuItem value="ISD">ISD</MenuItem>
-                      <MenuItem value="Employee">Employee</MenuItem>
-                      <MenuItem value="Admin">Admin</MenuItem>
-                      <MenuItem value="Technician">Technician</MenuItem>
-                    </Select>
-                  </FormControl>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <img
-                     src={captchaImage}  // Display Base64-encoded CAPTCHA image
-                      alt="CAPTCHA"
-                      style={{ height: '50px' }}
-                    />
-                    <TextField
-                      label="Enter CAPTCHA"
-                      variant="outlined"
-                      value={captcha}
-                      onChange={(e) => setCaptcha(e.target.value)}
-                      fullWidth
-                    />
-                  </Box>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.9 }}
-                >
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    fullWidth
-                    style={{
-                      background: 'linear-gradient(to right,#bf0ae2,#bf0ae2)', // Gradient color
-                      color: 'white', // Text color
-                    }}
-                  >
-                    Log In
-                  </Button>
-                </motion.div>
+                  Log In
+                </Button>
               </Box>
             </form>
           </motion.div>
         </Paper>
-      </Box>
-    </Container>
+      </Container>
+
+      <Footer />
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ import Barchartpage from '../../components/chart/Barchartpage';
 import WebAssetIcon from '@mui/icons-material/WebAsset';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import HistoryIcon from '@mui/icons-material/History';
-import BackgroundImage from '../../components/chart/bg-blue.jpg';
+import BackgroundImage from '../../components/chart/bg-new-vec.jpg';
 
 // Animation for cards and grid elements
 const cardVariants = {

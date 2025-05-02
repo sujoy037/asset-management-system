@@ -19,7 +19,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import BackgroundImage from '../../components/chart/bg-blue.jpg';
-
+import api from '../../api';
 const AssetsAssignHistory = () => {
   const navigate = useNavigate();
   const [assets, setAssets] = useState([]);
@@ -49,7 +49,7 @@ const AssetsAssignHistory = () => {
       setLoading(true);
       setError('');
       try {
-        const response = await axios.get(`http://localhost:5001/api/assets?usr_cd=${usrCd}`, {
+        const response = await api.get(`/assets?usr_cd=${usrCd}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log('API Response:', response); // Debugging response

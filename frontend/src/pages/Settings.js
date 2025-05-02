@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../components/DashboardLayout';
 import { Box, Typography, Button, useMediaQuery, TextField } from '@mui/material';
-import BackgroundImage from '../components/chart/bg-blue.jpg';
+import BackgroundImage from '../components/chart/bg-new-vec.jpg';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useTheme } from '@mui/material/styles';
 

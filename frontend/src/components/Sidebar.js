@@ -24,8 +24,8 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
     const navigate = useNavigate();
     const location = useLocation();
-
-    // Define role-based cards (to show when on Role-related pages)
+    // ISD Dashboard
+    // Define role-based cards-- (to show when on Role-related pages)
     const roleCards = [
         { title: 'Role', path: '/assign-roles-card', color: 'rgb(34, 153, 84)', Icon: PersonIcon },
 
@@ -61,6 +61,30 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
         { title: 'Status', path: '/status', color: 'rgb(34, 153, 84)', Icon: AssignmentIcon },
 
     ];
+   
+
+
+    // Technician Dashboard
+// Define role-based cards (for Technician)
+// Define asset-based cards (for Technician)
+const regTechCards = [
+    { title: 'Register Technician', path: '/register-technician', color: 'rgb(34, 153, 84)', Icon: EngineeringIcon },
+];
+
+// Define complaints-based cards (for Technician)
+const complaintsTechCards = [
+    { title: 'Complaints List', path: '/technician-complaints', color: 'rgb(34, 153, 84)', Icon: ReportProblemIcon },
+];
+
+// Define report-based cards (for Technician)
+const reportTechCards = [
+    { title: 'Report', path: '/technician-reports', color: 'rgb(34, 153, 84)', Icon: SummarizeIcon },
+];
+
+// Define assign technician-based cards (for Technician)
+const assignTechnicianCards = [
+    { title: 'Assign Technician', path: '/assign-technician', color: 'rgb(34, 153, 84)', Icon: EngineeringIcon },
+];
 
 
     // Define the main role-based menu
@@ -112,9 +136,9 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
         Technician: [
             { text: 'Home', icon: <HomeIcon />, path: '/technician-dashboard' },
             { text: 'Register Technician', icon: <EngineeringIcon />, path: '/register-technician' },
-            { text: 'Complaints List', icon: <ReportProblemIcon />, path: '/register-complaints' },
-            { text: 'Report', icon: <SummarizeIcon />, path: '/EngineeringIcon' },
-            { text: 'Assign Technician', icon: <EngineeringIcon />, path: '/EngineeringIcon' },
+            { text: 'Complaints List', icon: <ReportProblemIcon />, path: '/technician-complaints' },
+            { text: 'Report', icon: <SummarizeIcon />, path: '/technician-reports' },
+            { text: 'Assign Technician', icon: <EngineeringIcon />, path: '/assign-technician' },
         ],
     };
 
@@ -174,6 +198,12 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
         location.pathname.includes('/asset-repair-Status');
 
 
+// Check if we are on a Technician-related page
+const isTechnicianPage = location.pathname.includes('/technician-complaints');
+const isRegisterTechnician = location.pathname.includes('/register-technician');
+const isAssignTechnician = location.pathname.includes('/assign-technician');
+const isTechnicianReport = location.pathname.includes('/technician-reports');
+    
 
     // Get the correct menu items based on role and page
     const menuItems = roleBasedMenu[role] || [];
@@ -191,7 +221,7 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                     '& .MuiDrawer-paper': {
                         width: 240,
                         boxSizing: 'border-box',
-                        backgroundColor: '#0D47A1',
+                        backgroundColor: 'rgb(8, 160, 219)',
                         color: 'white',
                     },
                 }}
@@ -212,7 +242,7 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                         {uer_nm || 'User'}
                     </Typography>
                 </Box>
-
+    
                 {/* Render specific cards when on a related page */}
                 {isRolePage ? (
                     <List>
@@ -227,9 +257,7 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                                 sx={{
                                     color: 'white',
                                     backgroundColor: card.color,
-                                    '&:hover': {
-                                        backgroundColor: '#1565C0',
-                                    },
+                                    '&:hover': { backgroundColor: '#1565C0' },
                                 }}
                             >
                                 <ListItemIcon sx={{ color: 'white' }}>
@@ -240,7 +268,6 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                         ))}
                     </List>
                 ) : isAssetPage ? (
-                    // Render Asset-specific cards when on an Asset-related page
                     <List>
                         {assetCards.map((card, index) => (
                             <ListItem
@@ -253,9 +280,7 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                                 sx={{
                                     color: 'white',
                                     backgroundColor: card.color,
-                                    '&:hover': {
-                                        backgroundColor: '#1565C0',
-                                    },
+                                    '&:hover': { backgroundColor: '#1565C0' },
                                 }}
                             >
                                 <ListItemIcon sx={{ color: 'white' }}>
@@ -266,7 +291,6 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                         ))}
                     </List>
                 ) : iscomplaintsPage ? (
-                    // Render complaints-specific cards when on an Asset-related page
                     <List>
                         {complaintsCards.map((card, index) => (
                             <ListItem
@@ -279,9 +303,7 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                                 sx={{
                                     color: 'white',
                                     backgroundColor: card.color,
-                                    '&:hover': {
-                                        backgroundColor: '#1565C0',
-                                    },
+                                    '&:hover': { backgroundColor: '#1565C0' },
                                 }}
                             >
                                 <ListItemIcon sx={{ color: 'white' }}>
@@ -292,7 +314,6 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                         ))}
                     </List>
                 ) : isreportPage ? (
-                    // Render complaints-specific cards when on an Asset-related page
                     <List>
                         {reportCards.map((card, index) => (
                             <ListItem
@@ -305,9 +326,7 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                                 sx={{
                                     color: 'white',
                                     backgroundColor: card.color,
-                                    '&:hover': {
-                                        backgroundColor: '#1565C0',
-                                    },
+                                    '&:hover': { backgroundColor: '#1565C0' },
                                 }}
                             >
                                 <ListItemIcon sx={{ color: 'white' }}>
@@ -318,7 +337,6 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                         ))}
                     </List>
                 ) : ishistoryPage ? (
-                    // Render Asset-specific cards when on an Asset-related page
                     <List>
                         {historyCards.map((card, index) => (
                             <ListItem
@@ -331,9 +349,7 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                                 sx={{
                                     color: 'white',
                                     backgroundColor: card.color,
-                                    '&:hover': {
-                                        backgroundColor: '#1565C0',
-                                    },
+                                    '&:hover': { backgroundColor: '#1565C0' },
                                 }}
                             >
                                 <ListItemIcon sx={{ color: 'white' }}>
@@ -344,7 +360,6 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                         ))}
                     </List>
                 ) : isstatusPage ? (
-                    // Render Asset-specific cards when on an Asset-related page
                     <List>
                         {statusCards.map((card, index) => (
                             <ListItem
@@ -357,9 +372,7 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                                 sx={{
                                     color: 'white',
                                     backgroundColor: card.color,
-                                    '&:hover': {
-                                        backgroundColor: '#1565C0',
-                                    },
+                                    '&:hover': { backgroundColor: '#1565C0' },
                                 }}
                             >
                                 <ListItemIcon sx={{ color: 'white' }}>
@@ -369,6 +382,103 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                             </ListItem>
                         ))}
                     </List>
+                ) : isTechnicianPage ? (
+                    // Render Technician-specific cards when on a Technician-related page
+                    <List>
+                        {complaintsTechCards.map((card, index) => (
+                            <ListItem
+                                button
+                                key={index}
+                                onClick={() => {
+                                    navigate(card.path);
+                                    toggleSidebar();
+                                }}
+                                sx={{
+                                    color: 'white',
+                                    backgroundColor: card.color,
+                                    '&:hover': { backgroundColor: '#1565C0' },
+                                }}
+                            >
+                                <ListItemIcon sx={{ color: 'white' }}>
+                                    <card.Icon />
+                                </ListItemIcon>
+                                <ListItemText primary={card.title} />
+                            </ListItem>
+                        ))}
+                    </List>
+                     ) : isRegisterTechnician ? (
+                        // Render Technician-specific cards when on a Technician-related page
+                        <List>
+                            {regTechCards.map((card, index) => (
+                                <ListItem
+                                    button
+                                    key={index}
+                                    onClick={() => {
+                                        navigate(card.path);
+                                        toggleSidebar();
+                                    }}
+                                    sx={{
+                                        color: 'white',
+                                        backgroundColor: card.color,
+                                        '&:hover': { backgroundColor: '#1565C0' },
+                                    }}
+                                >
+                                    <ListItemIcon sx={{ color: 'white' }}>
+                                        <card.Icon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={card.title} />
+                                </ListItem>
+                            ))}
+                        </List>
+                        ) : isAssignTechnician ? (
+                            // Render Technician-specific cards when on a Technician-related page
+                            <List>
+                                {assignTechnicianCards.map((card, index) => (
+                                    <ListItem
+                                        button
+                                        key={index}
+                                        onClick={() => {
+                                            navigate(card.path);
+                                            toggleSidebar();
+                                        }}
+                                        sx={{
+                                            color: 'white',
+                                            backgroundColor: card.color,
+                                            '&:hover': { backgroundColor: '#1565C0' },
+                                        }}
+                                    >
+                                        <ListItemIcon sx={{ color: 'white' }}>
+                                            <card.Icon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={card.title} />
+                                    </ListItem>
+                                ))}
+                            </List>
+                              ) : isTechnicianReport ? (
+                                // Render Technician-specific cards when on a Technician-related page
+                                <List>
+                                    {reportTechCards.map((card, index) => (
+                                        <ListItem
+                                            button
+                                            key={index}
+                                            onClick={() => {
+                                                navigate(card.path);
+                                                toggleSidebar();
+                                            }}
+                                            sx={{
+                                                color: 'white',
+                                                backgroundColor: card.color,
+                                                '&:hover': { backgroundColor: '#1565C0' },
+                                            }}
+                                        >
+                                            <ListItemIcon sx={{ color: 'white' }}>
+                                                <card.Icon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={card.title} />
+                                        </ListItem>
+                                    ))}
+                                </List>
+                        
                 ) : (
                     // Render Main Menu when on any other page
                     <List>
@@ -382,9 +492,7 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
                                 }}
                                 sx={{
                                     color: 'white',
-                                    '&:hover': {
-                                        backgroundColor: '#1565C0',
-                                    },
+                                    '&:hover': { backgroundColor: '#1565C0' },
                                 }}
                             >
                                 <ListItemIcon sx={{ color: 'white' }}>{item.icon}</ListItemIcon>
@@ -396,6 +504,7 @@ const Sidebar = ({ role, uer_nm, isOpen, toggleSidebar }) => {
             </Drawer>
         </Box>
     );
+    
 };
 
 export default Sidebar;

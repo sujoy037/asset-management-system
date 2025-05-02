@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, CssBaseline, Toolbar, Typography } from '@mui/material';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 
 //import BackgroundImage from '../components/chart/logo.png';
@@ -41,8 +42,9 @@ const DashboardLayout = ({ role, children }) => {
         sx={{
           flexGrow: 1,
           p: 3,
-          marginTop: '4px', // Ensures content starts below the Navbar
+          marginTop: '5px', // Ensures content starts below the Navbar
           //height: '100vh', // Ensure the Box takes full viewport height
+          pb: '100px'
 
 
         }}
@@ -59,7 +61,8 @@ const DashboardLayout = ({ role, children }) => {
         {children}
 
       </Box>
-    
+      {/* Footer */}
+      <Footer />
     </Box>
   );
 };

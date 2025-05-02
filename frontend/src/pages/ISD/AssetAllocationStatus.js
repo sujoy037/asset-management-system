@@ -13,12 +13,14 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import axios from 'axios';
+//import axios from 'axios';
 import DashboardLayout from '../../components/DashboardLayout';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import BackgroundImage from '../../components/chart/bg-blue.jpg';
+import BackgroundImage from '../../components/chart/bg-new-vec.jpg';
+import api from '../../api';
+import { blue } from '@mui/material/colors';
 
 const AssetsAllocationStatus = () => {
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ const AssetsAllocationStatus = () => {
       setLoading(true);
       setError('');
       try {
-        const response = await axios.get(`http://localhost:5001/api/assets?usr_cd=${usrCd}`, {
+        const response = await api.get(`/assets?usr_cd=${usrCd}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log('API Response:', response); // Debugging response
@@ -84,7 +86,7 @@ const AssetsAllocationStatus = () => {
               variant="h5"
               gutterBottom
               align="center"
-              sx={{ color: 'white', textTransform: 'uppercase', marginBottom: 3 }}
+              sx={{ color: 'white', textTransform: 'uppercase', marginBottom: 3, color:'blue' }}
             >
               Assets Allocation Status of User
             </Typography>

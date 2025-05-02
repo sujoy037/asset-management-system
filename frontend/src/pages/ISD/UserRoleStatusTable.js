@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Typography, Box, Button, IconButton } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Typography,useMediaQuery, Box, Button, IconButton } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -7,10 +7,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DashboardLayout from '../../components/DashboardLayout';
 import { motion } from 'framer-motion';
-import BackgroundImage from '../../components/chart/bg-blue.jpg';
-
+import BackgroundImage from '../../components/chart/bg-new-vec.jpg';
+import api from '../../api'
+import { useTheme } from '@mui/material/styles';
 const UserRolesStatusTable = () => {
   const navigate = useNavigate(); // Initialize the navigate function
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -23,7 +26,7 @@ const UserRolesStatusTable = () => {
         return;
       }
 
-      const response = await axios.get('http://localhost:5001/api/user-roles-status', {
+      const response = await api.get('/user-roles-status', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -128,12 +131,12 @@ const UserRolesStatusTable = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <Typography variant="h5" gutterBottom color="white">
+            <Typography variant="h5" gutterBottom color="blue">
               User Role and Status Information
             </Typography>
-            <TableContainer component={Paper} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+            <TableContainer component={Paper} sx={{ backgroundColor: 'rgba(43, 124, 161, 0.8)' }}>
               <Table sx={{ minWidth: 650 }} aria-label="user role and status table">
-                <TableHead sx={{ background: 'linear-gradient(to right,rgb(37, 18, 211),rgb(10, 15, 32))', color: 'white' }}>
+                <TableHead sx={{ background: 'linear-gradient(to right,rgb(37, 18, 211),rgb(10, 15, 32))', color: 'white' ,width: isSmallScreen ? '100%' : '50%',}}>
                   <TableRow>
                     <TableCell sx={{ color: 'white' }}>User Code</TableCell>
                     <TableCell sx={{ color: 'white' }}>Role Code</TableCell>

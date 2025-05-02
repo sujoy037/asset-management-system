@@ -16,7 +16,7 @@ const Navbar = ({ toggleSidebar }) => {
   };
 
   return (
-    <AppBar position="fixed" sx={{ zIndex: 1201 ,background: 'linear-gradient(to right,rgb(37, 18, 211),rgb(34, 67, 173))' }}>
+    <AppBar position="fixed" sx={{ zIndex: 1201 ,background: 'linear-gradient(to right,rgb(212, 212, 212),rgb(9, 57, 214))' }}>
       <Toolbar>
         {/* Menu Button to Toggle Sidebar */}
         <IconButton

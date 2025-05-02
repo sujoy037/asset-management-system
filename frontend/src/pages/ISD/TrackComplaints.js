@@ -18,7 +18,8 @@ import DashboardLayout from '../../components/DashboardLayout';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import BackgroundImage from '../../components/chart/bg-blue.jpg';
+import BackgroundImage from '../../components/chart/bg-new-vec.jpg';
+import api from '../../api';
 
 const TrackComplaints = () => {
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ const TrackComplaints = () => {
         const fetchComplaints = async () => {
             const token = localStorage.getItem('authToken'); // Get the token from localStorage
             try {
-                const response = await axios.get('http://localhost:5001/api/complaints', {
+                const response = await api.get('/complaints', {
                     headers: { Authorization: `Bearer ${token}` } // Pass token in the headers
                 });
                 setComplaints(response.data); // Set the complaints data
@@ -73,7 +74,7 @@ const TrackComplaints = () => {
                             variant="h5"
                             gutterBottom
                             align="center"
-                            sx={{ color: 'white', textTransform: 'uppercase', marginBottom: 3 }}
+                            sx={{ color: 'blue', textTransform: 'uppercase', marginBottom: 3 }}
                         >
                             Complaints Status of User
                         </Typography>
